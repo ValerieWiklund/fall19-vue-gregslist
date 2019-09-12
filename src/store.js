@@ -12,7 +12,11 @@ let api = axios.create({
 export default new Vuex.Store({
   state: {
     cars: [],
-    activeCar: {}
+    activeCar: {},
+    jobs: [],
+    activeJob: {},
+    houses: [],
+    // activeHouse: {}
   },
   mutations: {
     setCars(state, payload) {
@@ -20,7 +24,19 @@ export default new Vuex.Store({
     },
     setActiveCar(state, payload) {
       state.activeCar = payload
+    },
+
+    setJobs(state, data) {
+      state.jobs = data
+    },
+
+    setActiveJob(state, data) {
+      state.activeJob = data
+    },
+    setHouses(state, data) {
+      state.houses = data
     }
+
   },
   actions: {
     async getCars({ commit, dispatch }) {
@@ -41,6 +57,34 @@ export default new Vuex.Store({
 
       }
     },
+    async getJobs({ commit, dispatch }) {
+      try {
+        let res = await api.get('jobs')
+        console.log("got to getJobs")
+        commit('setJobs', res.data.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async getJobById({ commit, dispatch }, data) {
+      try {
+        let res = await api.get(`/jobs/${data.jobId}`)
+        commit('setActiveJob', res.data.data)
+
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+    async getHouses({ commit, dispatch }) {
+      try {
+        let res = await api.get('houses')
+        commit('setHouses', res.data.data)
+      } catch (error) {
+        console.error(error)
+      }
+    },
     async addCar({ dispatch }, payload) {
       try {
         let res = await api.post('/cars', payload)
@@ -48,6 +92,15 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
 
+      }
+    },
+
+    async addJob({ dispatch }, data) {
+      try {
+        let res = await api.post('/jobs', data)
+        dispatch('getJobs')
+      } catch (error) {
+        console.error(error)
       }
     },
     async delortCar({ dispatch }, payload) {
