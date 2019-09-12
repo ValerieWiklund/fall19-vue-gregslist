@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Cars from './views/Cars.vue'
+// import Jobs from './views/Jobs.vue'
+// import Houses from './views/Houses.vue'
 
 Vue.use(Router)
 
@@ -29,6 +31,36 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       component: function () {
         return import(/* webpackChunkName: "car" */ './views/Car.vue')
+      }
+    },
+    {
+      path: '/jobs',
+      name: 'jobs',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: function () {
+        return import(/* webpackChunkName: "jobs" */ './views/Jobs.vue')
+      }
+    },
+    {
+      path: '/jobs/:jobId',
+      name: 'job',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: function () {
+        return import(/* webpackChunkName: "car" */ './views/Jobs.vue')
+      }
+    },
+    {
+      path: '/houses',
+      name: 'houses',
+      // route level code-splitting
+      // this generates a separate chunk (about.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: function () {
+        return import(/* webpackChunkName: "houses" */ './views/Houses.vue')
       }
     },
     {
